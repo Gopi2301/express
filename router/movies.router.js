@@ -1,9 +1,10 @@
 import express from "express";
 const router = express.Router()
 import {client} from "../index.js";
+import { allMovies, findMovies, createMovies, deleteMovie } from "../service/movies.service.js";
 // =========== Get All movie ====================//
 router.get("/", async function (request, response) {
-    const movies = await client.db("moviestrailer").collection("list").find({}).toArray();
+    const movies = await allMovies();
     console.log(movies);
     response.send(movies);
   });
@@ -12,10 +13,7 @@ router.get("/", async function (request, response) {
 router.get("/:id", async function (request, response) {
     const { id } = request.params;
     console.log(id);
-    const movie = await client
-      .db("moviestrailer")
-      .collection("list")
-      .findOne({ id: id });
+    const movie = await findMovies(id);
     movie ? response.send(movie) : response.status(404).send("Movie not found");
   });
   
@@ -23,20 +21,14 @@ router.get("/:id", async function (request, response) {
 router.post("/",  async function (request, response) {
     const data = request.body;
     console.log(data);
-    const result = await client
-      .db("moviestrailer")
-      .collection("list")
-      .insertMany(data);
+    const result = await createMovies(data);
     response.send(result);
   });
 // ============= Delete Movie ====================//
 router.delete("/:id", async function (request, response) {
     const { id } = request.params;
     console.log(id);
-    const movie = await client
-      .db("moviestrailer")
-      .collection("list")
-      .deleteOne({ id: id });
+    const movie = await deleteMovie(id);
   
     response.send(movie)
   })  
@@ -51,3 +43,5 @@ router.put("/:id", async function(request, response){
   })
 
   export default router;
+
+
