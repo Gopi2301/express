@@ -4,11 +4,8 @@ import express from "express";
 import { MongoClient } from "mongodb";
 const app = express();
 // =============== Variables =======================//
-
-
-
 //    "/" port for "hello world"
-const PORT = 4000;
+const PORT = process.env.PORT //Auto-Assignable;
 // ============== MONGO CONNECTION ==================//
 
 // const MONGO_URL = "mongodb://127.0.0.1";
