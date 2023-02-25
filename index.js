@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import { MongoClient } from "mongodb";
 import moviesRouter from './router/movies.router.js';
+import cors from "cors";
 const app = express();
 const PORT = process.env.PORT //Auto-Assignable;
 
@@ -26,7 +27,7 @@ app.get("/", function (request, response) {
 // app.use() Intercept-> apply middeware -> converting body to JSON
 // express.json() -> middleware to inform the datatype
 app.use(express.json())
-
+app.use(cors())
 
 
 app.use("/movies",moviesRouter);

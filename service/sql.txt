@@ -1,0 +1,44 @@
+-- Users table
+CREATE TABLE Users (
+  UserID INT PRIMARY KEY,
+  UserName VARCHAR(50) NOT NULL
+);
+
+-- Genres table
+CREATE TABLE Genres (
+  GenreID INT PRIMARY KEY,
+  GenreName VARCHAR(50) NOT NULL
+);
+
+-- Movies table
+CREATE TABLE Movies (
+  MovieID INT PRIMARY KEY,
+  Title VARCHAR(100) NOT NULL,
+  ReleaseYear INT,
+  Plot TEXT,
+  Rating DECIMAL(3,1)
+);
+
+-- Media table
+CREATE TABLE Media (
+  MediaID INT PRIMARY KEY,
+  MovieID INT NOT NULL,
+  MediaType VARCHAR(10) NOT NULL,
+  MediaURL VARCHAR(200) NOT NULL,
+);
+
+-- GenreMovie table (many-to-many relationship between genres and movies)
+CREATE TABLE GenreMovie (
+  GenreID INT NOT NULL,
+  MovieID INT NOT NULL,
+  PRIMARY KEY (GenreID, MovieID),
+);
+
+-- Reviews table
+CREATE TABLE Reviews (
+  ReviewID INT PRIMARY KEY,
+  UserID INT NOT NULL,
+  MovieID INT NOT NULL,
+  Rating DECIMAL(3,1) NOT NULL,
+  ReviewText TEXT,
+);
